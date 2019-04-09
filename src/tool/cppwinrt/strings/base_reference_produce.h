@@ -347,26 +347,26 @@ namespace winrt
         return default_value;
     }
 
-	struct boxed_value : Windows::Foundation::IInspectable
-	{
-		boxed_value(std::nullptr_t = nullptr) noexcept {}
+    struct boxed_value : Windows::Foundation::IInspectable
+    {
+        boxed_value(std::nullptr_t = nullptr) noexcept {}
 
-		template <typename T>
-		explicit boxed_value(T&& value) : Windows::Foundation::IInspectable(box_value(std::forward<T>(value)))
-		{
-		}
+        template <typename T>
+        explicit boxed_value(T&& value) : Windows::Foundation::IInspectable(box_value(std::forward<T>(value)))
+        {
+        }
 
-		template <typename T>
-		operator T() const
-		{
-			return unbox_value<T>(*this);
-		}
-	};
+        template <typename T>
+        operator T() const
+        {
+            return unbox_value<T>(*this);
+        }
+    };
 
-	inline hstring& hstring::operator=(boxed_value const& value)
-	{
-		return *this = unbox_value<hstring>(value);
-	}
+    inline hstring& hstring::operator=(boxed_value const& value)
+    {
+        return *this = unbox_value<hstring>(value);
+    }
 }
 
 namespace winrt

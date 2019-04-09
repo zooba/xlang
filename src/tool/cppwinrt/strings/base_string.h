@@ -40,7 +40,7 @@ namespace winrt::impl
 
 namespace winrt
 {
-	struct boxed_value;
+    struct boxed_value;
 
     struct hstring
     {
@@ -103,7 +103,7 @@ namespace winrt
             return *this = hstring{ value };
         }
 
-		hstring& operator=(boxed_value const& value);
+        hstring& operator=(boxed_value const& value);
 
         void clear() noexcept
         {
