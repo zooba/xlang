@@ -40,6 +40,8 @@ namespace winrt::impl
 
 namespace winrt
 {
+	struct boxed_value;
+
     struct hstring
     {
         using value_type = wchar_t;
@@ -100,6 +102,8 @@ namespace winrt
         {
             return *this = hstring{ value };
         }
+
+		hstring& operator=(boxed_value const& value);
 
         void clear() noexcept
         {
