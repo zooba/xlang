@@ -352,7 +352,7 @@ namespace winrt
 		boxed_value(std::nullptr_t = nullptr) noexcept {}
 
 		template <typename T>
-		boxed_value(T&& value) : Windows::Foundation::IInspectable(box_value(std::forward<T>(value)))
+		explicit boxed_value(T&& value) : Windows::Foundation::IInspectable(box_value(std::forward<T>(value)))
 		{
 		}
 
