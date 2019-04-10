@@ -350,27 +350,20 @@ namespace winrt
     struct boxed_value : Windows::Foundation::IInspectable
     {
         boxed_value(std::nullptr_t = nullptr) noexcept {}
+        boxed_value(void* ptr, take_ownership_from_abi_t) noexcept : Windows::Foundation::IInspectable(ptr, take_ownership_from_abi) {}
 
-        template <typename T>
-        explicit boxed_value(T&& value) : Windows::Foundation::IInspectable(box_value(std::forward<T>(value)))
+        template <typename T, typename = std::enable_if_t<impl::has_category_v<std::decay_t<T>>>>
+        boxed_value(T&& value) : Windows::Foundation::IInspectable(box_value(std::forward<T>(value)))
         {
         }
 
-        template <typename T>
+        template <typename T, typename = std::enable_if_t<impl::has_category_v<std::decay_t<T>>>>
         operator T() const
         {
             return unbox_value<T>(*this);
         }
     };
 
-    inline hstring& hstring::operator=(boxed_value const& value)
-    {
-        return *this = unbox_value<hstring>(value);
-    }
-}
-
-namespace winrt
-{
     template <typename T>
     using optional = Windows::Foundation::IReference<T>;
 }
