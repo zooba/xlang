@@ -2,12 +2,12 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
+#include <Windows.h>
 
 #include "antlr4-runtime.h"
 #include "XlangParser.h"
 #include "XlangLexer.h"
 #include "xlang_test_listener.h"
-#include <Windows.h>
 
 using namespace antlr4;
 
