@@ -28,16 +28,20 @@ std::string remove_extension(const std::string& filename) {
     return filename.substr(0, lastdot);
 }
 
+std::string remove_path(const std::string& filename) {
+    size_t lastdot = filename.find_last_of("\\");
+    if (lastdot == std::string::npos) return filename;
+    return filename.substr(lastdot + 1, filename.length());
+}
+
 int main(int argc, const char* argv[])
 {
     std::ifstream stream;
-    printf("Opening %s \n", argv[1]);
     stream.open(argv[1]);
     xmeta_idl_reader reader{ "" };
     reader.read(stream);
 
-    std::string assembly_name = remove_extension(std::string(argv[1]));
-    std::cout << assembly_name << std::endl;
+    std::string assembly_name = remove_path(remove_extension(std::string(argv[1])));
     xlang_model_walker walker(reader.get_namespaces());
     std::shared_ptr<xmeta_emit> emitter = std::make_shared<xmeta_emit>(assembly_name);
 
